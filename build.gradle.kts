@@ -29,6 +29,8 @@ subprojects {
 		configure<SpotlessExtension> {
 			java {
 				googleJavaFormat()
+				formatAnnotations()
+				importOrder()
 				removeUnusedImports()
 				trimTrailingWhitespace()
 				endWithNewline()
