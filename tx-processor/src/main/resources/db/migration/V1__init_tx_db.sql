@@ -1,4 +1,6 @@
-CREATE TABLE transactions (
+CREATE SCHEMA IF NOT EXISTS public;
+
+CREATE TABLE IF NOT EXISTS transactions (
     id UUID PRIMARY KEY,
     user_id UUID NOT NULL,
     amount NUMERIC(19, 2) NOT NULL,
@@ -8,9 +10,9 @@ CREATE TABLE transactions (
 );
 
 -- Индекс для быстрой выборки всех транзакций конкретного пользователя
-CREATE INDEX idx_transactions_user_id ON transactions(user_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_user_id ON transactions(user_id);
 
-CREATE TABLE user_balances (
+CREATE TABLE IF NOT EXISTS user_balances (
     user_id UUID PRIMARY KEY,
     balance NUMERIC(19, 2) NOT NULL DEFAULT 0.00,
     updated_at TIMESTAMP NOT NULL DEFAULT timezone('utc', now())
