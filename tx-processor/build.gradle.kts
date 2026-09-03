@@ -9,21 +9,21 @@ plugins {
 dependencies {
     implementation(project(":shared"))
 
-    implementation(libs.spring.boot.starter.web)
-    implementation(libs.spring.boot.starter.data.jpa)
-    implementation(libs.spring.boot.starter.validation)
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation(libs.postgresql)
 
     testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter)
+    testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     //--- Обслуживание кода
     errorprone(libs.errorprone.core)
     //---
     //--- БД миграция
-    implementation(libs.flyway.core)
-    implementation(libs.flyway.database.postgresql)
+    implementation("org.springframework.boot:spring-boot-starter-flyway")
+    runtimeOnly("org.flywaydb:flyway-database-postgresql")
     //---
 }
 
