@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: tx-processor
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tx_db
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  # Настройки Hibernate / JPA
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      # Настройку ddl-auto отключаем (none), так как за создание таблиц у нас отвечает Flyway
+      ddl-auto: none
+    show-sql: true # Показывать SQL-запросы в консоли
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Настройки миграций Flyway
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
