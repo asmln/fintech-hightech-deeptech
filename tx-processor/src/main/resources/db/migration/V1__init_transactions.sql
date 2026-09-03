@@ -1,0 +1,17 @@
+CREATE TABLE transactions (
+    id UUID PRIMARY KEY,
+    user_id UUID NOT NULL,
+    amount NUMERIC(19, 2) NOT NULL,
+    type VARCHAR(20) NOT NULL,     -- DEPOSIT, WITHDRAWAL
+    status VARCHAR(20) NOT NULL,   -- PROCESSING, SUCCESS, FAILED
+    created_at TIMESTAMP NOT NULL DEFAULT timezone('utc', now())
+);
+
+-- Индекс для быстрой выборки всех транзакций конкретного пользователя
+CREATE INDEX idx_transactions_user_id ON transactions(user_id);
+
+CREATE TABLE user_balances (
+    user_id UUID PRIMARY KEY,
+    balance NUMERIC(19, 2) NOT NULL DEFAULT 0.00,
+    updated_at TIMESTAMP NOT NULL DEFAULT timezone('utc', now())
+);
