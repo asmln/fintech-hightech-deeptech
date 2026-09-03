@@ -62,8 +62,7 @@ public class TransactionService {
                 "Транзакция успешно принята в обработку",
                 transaction.getExternalId(),
                 transaction.getUserId(),
-                Instant.now(),
-                true
+                Instant.now()
         );
     }
 
