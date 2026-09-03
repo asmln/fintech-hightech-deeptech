@@ -8,5 +8,16 @@ public record TransactionResponse(
         String message,
         UUID externalId,
         UUID userId,
-        Instant createdAt
-) {}
+        Instant createdAt,
+        Boolean duplicate
+) {
+    public TransactionResponse(
+            String status,
+            String message,
+            UUID externalId,
+            UUID userId,
+            Instant createdAt
+    ) {
+        this(status, message, externalId, userId, createdAt, null);
+    }
+}

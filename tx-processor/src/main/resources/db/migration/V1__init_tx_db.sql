@@ -3,9 +3,9 @@ CREATE SCHEMA IF NOT EXISTS public;
 CREATE TABLE IF NOT EXISTS transactions (
     id UUID PRIMARY KEY,
     user_id UUID NOT NULL,
-    amount NUMERIC(19, 2) NOT NULL,
+    external_id UUID NOT NULL,
+    amount NUMERIC(10, 2) NOT NULL,
     type VARCHAR(20) NOT NULL,     -- DEPOSIT, WITHDRAWAL
-    status VARCHAR(20) NOT NULL,   -- PROCESSING, SUCCESS, FAILED
     created_at TIMESTAMP NOT NULL DEFAULT timezone('utc', now())
 );
 
@@ -17,3 +17,13 @@ CREATE TABLE IF NOT EXISTS user_balances (
     balance NUMERIC(19, 2) NOT NULL DEFAULT 0.00,
     updated_at TIMESTAMP NOT NULL DEFAULT timezone('utc', now())
 );
+
+-- Таблица для паттерна Outbox
+CREATE TABLE tx_outbox (
+    transaction_id UUID  PRIMARY KEY,
+    user_id UUID NOT NULL,
+    payload JSONB NOT NULL,
+    sent BOOLEAN NOT NULL
+);
+-- Индекс для быстрого поиска неотправленных событий
+CREATE INDEX idx_tx_outbox_status ON tx_outbox(sent);
