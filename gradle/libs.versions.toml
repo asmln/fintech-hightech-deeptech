@@ -17,13 +17,6 @@ spotless = { id =  "com.diffplug.spotless", version.ref = "spotless" }
 errorprone = { id =  "net.ltgt.errorprone", version.ref = "errorprone" }
 
 [libraries]
-# Spring Boot стартеры
-#spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
-#spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
-#spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
-#spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone-core" }
-### БД
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
-###
