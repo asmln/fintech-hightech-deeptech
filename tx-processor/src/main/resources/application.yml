@@ -14,7 +14,6 @@ spring:
   # Настройки Hibernate / JPA
   jpa:
     hibernate:
-      # Настройку ddl-auto отключаем (none), так как за создание таблиц у нас отвечает Flyway
       ddl-auto: validate
     show-sql: true # Показывать SQL-запросы в консоли
     properties:
