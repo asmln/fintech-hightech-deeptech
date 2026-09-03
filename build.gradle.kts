@@ -29,12 +29,15 @@ subprojects {
 	pluginManager.withPlugin(spotlessPluginId) {
 		configure<SpotlessExtension> {
 			java {
-				googleJavaFormat()
-				formatAnnotations()
+				princeOfSpace()
+					.javaLanguageLevel(25)
+					.wrapStyle("NARROW")
+					.lineLength(90)
 				importOrder()
 				removeUnusedImports()
 				trimTrailingWhitespace()
 				endWithNewline()
+				toggleOffOn()
 			}
 		}
 	}
