@@ -13,10 +13,9 @@ spring:
 
   # Настройки Hibernate / JPA
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       # Настройку ddl-auto отключаем (none), так как за создание таблиц у нас отвечает Flyway
-      ddl-auto: none
+      ddl-auto: validate
     show-sql: true # Показывать SQL-запросы в консоли
     properties:
       hibernate:
@@ -26,3 +25,8 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
+    out-of-order: false
+    table: flyway_schema_history
+    encoding: UTF-8
