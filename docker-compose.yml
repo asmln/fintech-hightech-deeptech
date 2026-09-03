@@ -1,13 +1,12 @@
-version: '5.5.0'
 services:
   # --- БД Транзакций ---
   payment-db:
     image: postgres:18.6
-    container_name: payment-db
+    container_name: tx-db
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: payment_db
+      POSTGRES_DB: tx_db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
 
