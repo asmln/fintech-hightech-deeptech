@@ -32,7 +32,7 @@ subprojects {
 				princeOfSpace()
 					.javaLanguageLevel(25)
 					.wrapStyle("NARROW")
-					.lineLength(90)
+					.lineLength(120)
 				importOrder()
 				removeUnusedImports()
 				trimTrailingWhitespace()
