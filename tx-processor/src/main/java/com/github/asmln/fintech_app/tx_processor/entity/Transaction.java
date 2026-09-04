@@ -27,13 +27,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(
-            UUID userId,
-            UUID externalId,
-            BigDecimal amount,
-            TransactionType type,
-            Instant createdAt
-    ) {
+    public Transaction(UUID userId, UUID externalId, BigDecimal amount, TransactionType type, Instant createdAt) {
         this.userId = userId;
         this.externalId = externalId;
         this.amount = amount;

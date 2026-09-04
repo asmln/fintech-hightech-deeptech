@@ -11,13 +11,7 @@ public record TransactionResponse(
         Instant createdAt,
         Boolean duplicate
 ) {
-    public TransactionResponse(
-            String status,
-            String message,
-            UUID externalId,
-            UUID userId,
-            Instant createdAt
-    ) {
+    public TransactionResponse(String status, String message, UUID externalId, UUID userId, Instant createdAt) {
         this(status, message, externalId, userId, createdAt, null);
     }
 }

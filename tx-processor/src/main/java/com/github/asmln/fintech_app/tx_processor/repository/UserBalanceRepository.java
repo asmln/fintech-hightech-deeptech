@@ -17,8 +17,5 @@ public interface UserBalanceRepository extends Repository<UserBalance, UUID> {
             updated_at = timezone('utc', now())
         RETURNING balance
         """, nativeQuery = true)
-    BigDecimal upsertBalance(
-            @Param("userId") UUID userId,
-            @Param("balance") BigDecimal balanceDelta
-    );
+    BigDecimal upsertBalance(@Param("userId") UUID userId, @Param("balance") BigDecimal balanceDelta);
 }

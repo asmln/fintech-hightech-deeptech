@@ -21,9 +21,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<TransactionResponse> processTransaction(
-            @Valid @RequestBody TransactionRequest request
-    ) {
+    public ResponseEntity<TransactionResponse> processTransaction(@Valid @RequestBody TransactionRequest request) {
         TransactionResponse response = transactionService.saveTransaction(request);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }

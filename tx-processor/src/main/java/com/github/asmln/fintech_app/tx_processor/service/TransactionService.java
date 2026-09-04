@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class TransactionService {
@@ -41,8 +41,7 @@ public class TransactionService {
 
     @Transactional
     public TransactionResponse saveTransaction(TransactionRequest transactionRequest) {
-        Optional<Transaction> txOptional =
-                transactionRepository.findByExternalId(transactionRequest.externalId());
+        Optional<Transaction> txOptional = transactionRepository.findByExternalId(transactionRequest.externalId());
         if (txOptional.isPresent()) {
             return duplicateOkOrExceptionThrow(transactionRequest, txOptional.get());
         }
@@ -66,10 +65,7 @@ public class TransactionService {
         );
     }
 
-    private TransactionResponse duplicateOkOrExceptionThrow(
-            TransactionRequest transactionRequest,
-            Transaction tx
-    ) {
+    private TransactionResponse duplicateOkOrExceptionThrow(TransactionRequest transactionRequest, Transaction tx) {
         if (!tx.getUserId().equals(transactionRequest.userId())) {
             log.error(
                     "Транзакция UUID {} пользователя {} приходила от другого пользователя {}",
@@ -77,9 +73,7 @@ public class TransactionService {
                     transactionRequest.userId(),
                     tx.getUserId()
             );
-            throw new TransactionalDuplicateException(
-                    "Транзакция с таким UUID приходила от другого пользователя"
-            );
+            throw new TransactionalDuplicateException("Транзакция с таким UUID приходила от другого пользователя");
         }
         if (!tx.getType().equals(transactionRequest.type())) {
             log.error(
@@ -88,9 +82,7 @@ public class TransactionService {
                     transactionRequest.type(),
                     tx.getType()
             );
-            throw new TransactionalDuplicateException(
-                    "Транзакция с таким UUID приходила с другим типом"
-            );
+            throw new TransactionalDuplicateException("Транзакция с таким UUID приходила с другим типом");
         }
         if (!tx.getAmount().equals(transactionRequest.amount())) {
             log.error(
@@ -99,9 +91,7 @@ public class TransactionService {
                     transactionRequest.amount(),
                     tx.getAmount()
             );
-            throw new TransactionalDuplicateException(
-                    "Транзакция с таким UUID приходила с другой суммой"
-            );
+            throw new TransactionalDuplicateException("Транзакция с таким UUID приходила с другой суммой");
         }
         log.info("Транзакция UUID {} уже приходила", tx.getId());
         return new TransactionResponse(
