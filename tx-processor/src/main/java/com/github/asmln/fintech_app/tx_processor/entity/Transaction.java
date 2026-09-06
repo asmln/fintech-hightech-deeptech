@@ -2,6 +2,8 @@ package com.github.asmln.fintech_app.tx_processor.entity;
 
 import com.github.asmln.fintech_app.domain.TransactionType;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
@@ -10,7 +12,7 @@ import java.util.UUID;
 @Table(name = "transactions")
 public class Transaction {
     @Id
-    @GeneratedValue
+    @UuidGenerator(style = UuidGenerator.Style.VERSION_7)
     private UUID id;
     @Column(name = "user_id", nullable = false)
     private UUID userId;
