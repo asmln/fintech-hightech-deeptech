@@ -8,10 +8,10 @@
 Сервис просмотра баланса. Баланс принимаем через _Kafka_ из сервиса **tx-processor**.
 
 ### Интересное:
-Outbox через Kafka с идемпотентностью (в коде и в настройках Kafka).
-UUIDv7.
-Docker для PostgreSQL, Kafka и Kafka-UI.
-Flyway для создания нужных таблиц.
-Spotless для форматирования.
-Errorprone для статического анализа.
-Gradle на kotlin-dsl с настройкой версий в libs.versions.toml и отдельным модулем на каждый сервис.
+- _Outbox_ через _Kafka_ с идемпотентностью (в коде и в настройках _Kafka_).
+- _UUIDv7_.
+- _Docker_ для _PostgreSQL_, _Kafka_ и _Kafka-UI_.
+- _Flyway_ для создания нужных таблиц.
+- _Spotless_ для форматирования.
+- _Errorprone_ для статического анализа.
+- _Gradle_ на _kotlin-dsl_ с настройкой версий в _libs.versions.toml_ и отдельным модулем на каждый сервис.
