@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS user_balances (
 
 -- Таблица для паттерна Outbox
 CREATE TABLE tx_outbox (
-    transaction_id UUID  PRIMARY KEY,
+    transaction_id UUID PRIMARY KEY,
     user_id UUID NOT NULL,
     payload JSONB NOT NULL,
     sent BOOLEAN NOT NULL

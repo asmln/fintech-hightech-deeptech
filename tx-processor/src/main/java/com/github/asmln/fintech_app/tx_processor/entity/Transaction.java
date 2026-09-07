@@ -2,11 +2,10 @@ package com.github.asmln.fintech_app.tx_processor.entity;
 
 import com.github.asmln.fintech_app.domain.TransactionType;
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
+import org.hibernate.annotations.UuidGenerator;
 
 @Entity
 @Table(name = "transactions")

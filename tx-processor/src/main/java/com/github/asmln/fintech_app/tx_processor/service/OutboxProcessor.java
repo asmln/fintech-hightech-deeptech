@@ -1,5 +1,6 @@
 package com.github.asmln.fintech_app.tx_processor.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.asmln.fintech_app.tx_processor.entity.OutboxTransactionEvent;
 import com.github.asmln.fintech_app.tx_processor.repository.TransactionOutboxRepository;
 import java.util.concurrent.ExecutionException;
@@ -11,7 +12,6 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.fasterxml.jackson.databind.JsonNode;
 
 @Service
 public class OutboxProcessor {

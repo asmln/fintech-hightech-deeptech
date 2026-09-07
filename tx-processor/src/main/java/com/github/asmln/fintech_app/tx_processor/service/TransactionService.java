@@ -1,5 +1,6 @@
 package com.github.asmln.fintech_app.tx_processor.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.asmln.fintech_app.domain.TransactionEvent;
 import com.github.asmln.fintech_app.domain.TransactionType;
 import com.github.asmln.fintech_app.tx_processor.dto.TransactionRequest;
@@ -17,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class TransactionService {
