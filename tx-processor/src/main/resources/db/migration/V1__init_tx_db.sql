@@ -26,4 +26,6 @@ CREATE TABLE tx_outbox (
     sent BOOLEAN NOT NULL
 );
 -- Индекс для быстрого поиска неотправленных событий
-CREATE INDEX idx_tx_outbox_status ON tx_outbox(sent);
+CREATE INDEX idx_tx_outbox_not_sent
+    ON tx_outbox(transaction_id)
+    WHERE sent = false;
