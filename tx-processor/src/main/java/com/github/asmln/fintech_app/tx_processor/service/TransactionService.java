@@ -84,7 +84,7 @@ public class TransactionService {
             );
             throw new TransactionalDuplicateException("Транзакция с таким UUID приходила с другим типом");
         }
-        if (!tx.getAmount().equals(transactionRequest.amount())) {
+        if (tx.getAmount().compareTo(transactionRequest.amount()) != 0) {
             log.error(
                     "Транзакция UUID {} с суммой {} приходила с другой суммой {}",
                     tx.getId(),
