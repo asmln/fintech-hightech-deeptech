@@ -64,3 +64,37 @@ services:
       - KAFKA_CLUSTERS_0_NAME=local-kraft-cluster
       # URL для подключения внутри Docker-сети (используем внутренний порт 29092)
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
+
+  tx-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: tx-processor
+    container_name: tx-processor
+    ports:
+      - "8081:8081"
+    depends_on:
+      - transaction-db
+      - kafka
+    environment:
+      - SERVER_PORT=8081
+      - SERVER_ADDRESS=0.0.0.0
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://tx-db:5432/tx_db
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+
+  balance-viewer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: balance-viewer
+    container_name: balance-viewer
+    ports:
+      - "8082:8082"
+    depends_on:
+      - balance-db
+      - kafka
+    environment:
+        - SERVER_PORT=8082
+        - SERVER_ADDRESS=0.0.0.0
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://balance-db:5432/balance_db
+        - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
