@@ -15,6 +15,7 @@ RUN ./gradlew dependencies --no-daemon || true
 
 # Копируем исходный код и собираем проект
 COPY . .
+RUN ./gradlew spotlessApply --no-daemon
 RUN ./gradlew :tx-processor:bootJar :balance-viewer:bootJar --no-daemon
 ###
 
