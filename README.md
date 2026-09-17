@@ -15,6 +15,7 @@
 - _Flyway_ для создания нужных таблиц.
 - _Spotless_ для форматирования.
 - _Errorprone_ для статического анализа.
+- _Testcontainers_ для интеграционных тестов с БД.
 - _Gradle_ на _kotlin-dsl_ с настройкой версий в _libs.versions.toml_ и отдельным модулем на каждый сервис.
 - Сервисы (tx-processor и balance-viewer) можно развернуть локально.
 - Сервисы (tx-processor и balance-viewer) можно развернуть в Docker (для этого есть _Dockerfile_ и настройки в docker-compose.yml).
