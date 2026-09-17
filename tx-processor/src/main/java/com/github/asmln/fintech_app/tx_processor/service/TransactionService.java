@@ -5,6 +5,7 @@ import com.github.asmln.fintech_app.domain.TransactionEvent;
 import com.github.asmln.fintech_app.domain.TransactionType;
 import com.github.asmln.fintech_app.tx_processor.dto.TransactionRequest;
 import com.github.asmln.fintech_app.tx_processor.dto.TransactionResponse;
+import com.github.asmln.fintech_app.tx_processor.dto.TransactionStatus;
 import com.github.asmln.fintech_app.tx_processor.dto.TransactionalDuplicateException;
 import com.github.asmln.fintech_app.tx_processor.entity.OutboxTransactionEvent;
 import com.github.asmln.fintech_app.tx_processor.entity.Transaction;
@@ -57,7 +58,7 @@ public class TransactionService {
         var balance = saveBalance(transaction);
         saveOutbox(transaction, balance);
         return new TransactionResponse(
-                "ACCEPTED",
+                TransactionStatus.ACCEPTED,
                 "Транзакция успешно принята в обработку",
                 transaction.getExternalId(),
                 transaction.getUserId(),
@@ -95,7 +96,7 @@ public class TransactionService {
         }
         log.info("Транзакция UUID {} уже приходила", tx.getId());
         return new TransactionResponse(
-                "ACCEPTED",
+                TransactionStatus.ACCEPTED,
                 "Транзакция успешно принята в обработку",
                 tx.getExternalId(),
                 tx.getUserId(),

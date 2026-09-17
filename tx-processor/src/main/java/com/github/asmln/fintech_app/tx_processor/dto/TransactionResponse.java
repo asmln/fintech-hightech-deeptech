@@ -1,17 +1,24 @@
 package com.github.asmln.fintech_app.tx_processor.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.Instant;
 import java.util.UUID;
 
 public record TransactionResponse(
-        String status,
+        TransactionStatus status,
         String message,
         UUID externalId,
         UUID userId,
         Instant createdAt,
-        Boolean duplicate
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT) boolean duplicate
 ) {
-    public TransactionResponse(String status, String message, UUID externalId, UUID userId, Instant createdAt) {
-        this(status, message, externalId, userId, createdAt, null);
+    public TransactionResponse(
+            TransactionStatus status,
+            String message,
+            UUID externalId,
+            UUID userId,
+            Instant createdAt
+    ) {
+        this(status, message, externalId, userId, createdAt, false);
     }
 }
