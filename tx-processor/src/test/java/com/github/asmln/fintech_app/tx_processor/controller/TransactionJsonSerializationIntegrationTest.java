@@ -53,4 +53,31 @@ public class TransactionJsonSerializationIntegrationTest {
             .andExpect(jsonPath("$.status").value(TransactionStatus.ACCEPTED.name()))
             .andExpect(jsonPath("$.duplicate").doesNotExist());
     }
+
+    @Test
+    void shouldShowDuplicateFieldInJsonWhenItIsTrue() throws Exception {
+        var userId = UUID.randomUUID();
+        TransactionRequest request =
+                new TransactionRequest(userId, UUID.randomUUID(), new BigDecimal("100.00"), TransactionType.DEPOSIT);
+        var response =
+                new TransactionResponse(
+                        TransactionStatus.ACCEPTED,
+                        "Ok",
+                        UUID.randomUUID(),
+                        userId,
+                        Instant.now(),
+                        true
+        );
+        when(transactionService.saveTransaction(any())).thenReturn(response);
+        mockMvc
+            .perform(post("/api/v1/transactions")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(request))
+                .accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isAccepted())
+            .andExpect(jsonPath("$.userId").value(userId.toString()))
+            .andExpect(jsonPath("$.status").value(TransactionStatus.ACCEPTED.name()))
+            .andExpect(jsonPath("$.duplicate").value(true));
+    }
 }
