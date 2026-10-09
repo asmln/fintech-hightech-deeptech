@@ -9,6 +9,12 @@ services:
       POSTGRES_DB: tx_db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -h 127.0.0.1 -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
   # --- БД Балансов ---
   balance-db:
@@ -20,6 +26,12 @@ services:
       POSTGRES_DB: balance_db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -h 127.0.0.1 -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
   # --- Брокер Kafka (Режим KRaft) ---
   kafka:
@@ -74,8 +86,10 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - transaction-db
-      - kafka
+      transaction-db:
+        condition: service_healthy
+      kafka:
+        condition: service_started
     environment:
       - SERVER_PORT=8081
       - SERVER_ADDRESS=0.0.0.0
@@ -91,8 +105,10 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - balance-db
-      - kafka
+      balance-db:
+        condition: service_healthy
+      kafka:
+        condition: service_started
     environment:
         - SERVER_PORT=8082
         - SERVER_ADDRESS=0.0.0.0
