@@ -11,11 +11,11 @@ COPY balance-viewer/build.gradle.kts balance-viewer/
 COPY tx-processor/build.gradle.kts tx-processor/
 
 # Загружаем зависимости
-RUN ./gradlew dependencies --no-daemon || true
+RUN ./gradlew dependencies --no-daemon  > /dev/null
 
 # Копируем исходный код и собираем проект
 COPY . .
-RUN ./gradlew spotlessApply --no-daemon
+RUN ./gradlew spotlessCheck --no-daemon
 RUN ./gradlew :tx-processor:bootJar :balance-viewer:bootJar --no-daemon
 ###
 
@@ -23,7 +23,7 @@ RUN ./gradlew :tx-processor:bootJar :balance-viewer:bootJar --no-daemon
 FROM eclipse-temurin:25-jre-noble AS tx-processor
 WORKDIR /app
 # Копируем собранный jar-файл из этапа сборщика
-COPY --from=builder /app/tx-processor/build/libs/*.jar app.jar
+COPY --from=builder /app/tx-processor/build/libs/*-SNAPSHOT.jar app.jar
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
@@ -31,6 +31,6 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 FROM eclipse-temurin:25-jre-noble AS balance-viewer
 WORKDIR /app
 # Копируем собранный jar-файл из этапа сборщика
-COPY --from=builder /app/balance-viewer/build/libs/*.jar app.jar
+COPY --from=builder /app/balance-viewer/build/libs/*-SNAPSHOT.jar app.jar
 EXPOSE 8082
 ENTRYPOINT ["java", "-jar", "app.jar"]
