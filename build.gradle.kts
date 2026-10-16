@@ -1,4 +1,5 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
+import com.diffplug.spotless.LineEnding
 
 plugins {
 	java
@@ -28,6 +29,9 @@ val spotlessPluginId = libs.plugins.spotless.get().pluginId
 subprojects {
 	pluginManager.withPlugin(spotlessPluginId) {
 		configure<SpotlessExtension> {
+			// Принудительно устанавливаем окончания строк LF для всех проверок
+			lineEndings = LineEnding.UNIX
+
 			java {
 				princeOfSpace()
 					.javaLanguageLevel(25)
